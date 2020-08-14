@@ -35,6 +35,39 @@ RUN apk add --no-cache --update php-fpm \
     php-zlib \
     php-json \
     php-xml && \
+    gd \
+    curl \
+    zip \
+    unzip \
+    freetype \
+    libpng \
+    mysql-client \
+    libjpeg-turbo \
+    freetype-dev \
+    libpng-dev \
+    nodejs \
+    git \
+    php-fpm \
+    php-mcrypt \
+    php-curl \
+    php-gd \
+    php-zip \
+    php-xml \
+    php-tokenizer \
+    php-iconv \
+    php-simplexml \
+    php-fileinfo \
+    php-calendar \
+    php-exif \
+    php-ftp \
+    php-gettext \
+    php-pcntl \
+    php-posix \
+    php-shmop \
+    php-wddx \
+    php-xmlreader \
+    php-xmlwriter \
+    php-xsl
     ln -s /usr/bin/php7 /usr/bin/php
 
 # CONFIGURE WEB SERVER.
