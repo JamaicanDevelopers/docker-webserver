@@ -1,0 +1,31 @@
+# Alpine Image for Nginx and PHP
+
+# NGINX x ALPINE.
+FROM jamaicandevelopers/laravel-nginx-apline:main
+
+# INSTALL PHP AND SOME EXTENSIONS. SEE: https://github.com/codecasts/php-alpine
+RUN apk add --no-cache --update curl \
+    zip \
+    unzip \
+    freetype \
+    libpng \
+    php7-mcrypt \
+    php-curl \
+    php-gd \
+    php-zip \
+    php-xml \
+    php-tokenizer \
+    php-iconv \
+    php-simplexml \
+    php-fileinfo \
+    php-calendar \
+    php-exif \
+    php-ftp \
+    php-gettext \
+    php-pcntl \
+    php-posix \
+    php-shmop \
+    php-wddx \
+    php-xmlreader \
+    php-xmlwriter \
+    php-xsl
