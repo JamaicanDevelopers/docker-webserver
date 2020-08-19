@@ -23,6 +23,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/a
 
 # INSTALL PHP AND SOME EXTENSIONS. SEE: https://github.com/codecasts/php-alpine
 RUN apk add --no-cache --update php-fpm \
+    zip \
+    unzip \
     php \
     php-openssl \
     php-pdo \
@@ -35,6 +37,9 @@ RUN apk add --no-cache --update php-fpm \
     php-zlib \
     php-json \
     php-xml && \
+    php-curl \
+    php-gd \
+    php-zip \
     ln -s /usr/bin/php7 /usr/bin/php
 
 # CONFIGURE WEB SERVER.
