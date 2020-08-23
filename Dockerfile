@@ -15,7 +15,7 @@ RUN apk --update --no-cache add ca-certificates \
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # CONFIGURE ALPINE REPOSITORIES AND PHP BUILD DIR.
-ARG PHP_VERSION=7.3
+ARG PHP_VERSION=7.4
 ARG ALPINE_VERSION=3.9
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
