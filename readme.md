@@ -1,6 +1,6 @@
 # Web Server
 
-Nginx & PHP 7 web server.
+Nginx & PHP 7.4 web server.
 
 # Laravel Application - Quick Run
 
