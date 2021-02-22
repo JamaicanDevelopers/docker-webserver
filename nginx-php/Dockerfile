@@ -24,8 +24,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/a
 
 # INSTALL PHP AND SOME EXTENSIONS. SEE: https://github.com/codecasts/php-alpine
 RUN apk add --no-cache --update php-fpm \
-    zip \
-    unzip \
     php \
     php-openssl \
     php-pdo \
@@ -61,17 +59,11 @@ RUN mkdir -p /var/www && \
 # INSTALL COMPOSER.
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
-RUN addgroup -g 1000 laravel && adduser --uid 1000 -G laravel -g laravel -s /bin/sh -D laravel
-RUN chown laravel:laravel /var/www/
-
 # ADD START SCRIPT, SUPERVISOR CONFIG, NGINX CONFIG AND RUN SCRIPTS.
-ADD start.sh /start.sh
-ADD config/supervisor/supervisord.conf /etc/supervisord.conf
 ADD config/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD config/nginx/site.conf /etc/nginx/sites-available/default.conf
 ADD config/php/php.ini /etc/php7/php.ini
 ADD config/php-fpm/www.conf /etc/php7/php-fpm.d/www.conf
-RUN chmod 755 /start.sh
 
 # EXPOSE PORTS!
 ARG NGINX_HTTP_PORT=80
@@ -80,6 +72,3 @@ EXPOSE ${NGINX_HTTPS_PORT} ${NGINX_HTTP_PORT}
 
 # SET THE WORK DIRECTORY.
 WORKDIR /var/www
-
-# KICKSTART!
-CMD ["/start.sh"]

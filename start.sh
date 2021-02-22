@@ -60,5 +60,8 @@ fi
 
 find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
+# Adjust permission
+chown -R laravel:laravel /var/www
+
 # START SUPERVISOR.
 exec /usr/bin/supervisord -n -c /etc/supervisord.conf
