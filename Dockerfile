@@ -16,15 +16,15 @@ RUN apk --update --no-cache add ca-certificates \
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # CONFIGURE ALPINE REPOSITORIES AND PHP BUILD DIR.
-ARG PHP_VERSION=7.4
+ARG PHP_VERSION=7.2
 ARG ALPINE_VERSION=3.9
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
     echo "https://dl.bintray.com/php-alpine/v${ALPINE_VERSION}/php-${PHP_VERSION}" >> /etc/apk/repositories
 
 # INSTALL PHP AND SOME EXTENSIONS. SEE: https://github.com/codecasts/php-alpine
-RUN apk add --no-cache --update php-fpm \
-    php \
+RUN apk add --no-cache --update php \
+    php-fpm \
     php-openssl \
     php-pdo \
     php-pdo_mysql \
@@ -42,8 +42,7 @@ RUN apk add --no-cache --update php-fpm \
     php-zip \
     php-xml \
     php-intl \
-    php-xmlreader && \
-    ln -s /usr/bin/php7 /usr/bin/php
+    php-xmlreader
 
 # CONFIGURE WEB SERVER.
 RUN mkdir -p /var/www && \
