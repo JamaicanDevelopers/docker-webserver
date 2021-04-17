@@ -17,7 +17,7 @@ ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-a
 
 # CONFIGURE ALPINE REPOSITORIES AND PHP BUILD DIR.
 ARG PHP_VERSION=7.4
-ARG ALPINE_VERSION=3.9
+ARG ALPINE_VERSION=3.12
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
     echo "https://dl.bintray.com/php-alpine/v${ALPINE_VERSION}/php-${PHP_VERSION}" >> /etc/apk/repositories
@@ -42,8 +42,7 @@ RUN apk add --no-cache --update php-fpm \
     php-zip \
     php-xml \
     php-intl \
-    php-xmlreader && \
-    ln -s /usr/bin/php7 /usr/bin/php
+    php-xmlreader
 
 # CONFIGURE WEB SERVER.
 RUN mkdir -p /var/www && \
@@ -59,7 +58,7 @@ RUN mkdir -p /var/www && \
 # INSTALL COMPOSER.
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 
-RUN addgroup -g 1000 laravel && adduser --uid 1000 -G laravel -g laravel -s /bin/sh -D laravel
+RUN addgroup -g 1000 laravel && adduser --uid 1000 -G laravel -g laravel -s /bin/bash -D laravel
 RUN chown laravel:laravel /var/www/
 
 # ADD START SCRIPT, SUPERVISOR CONFIG, NGINX CONFIG AND RUN SCRIPTS.
