@@ -12,15 +12,19 @@ RUN apk --update --no-cache add ca-certificates \
     supervisor \
     git
 
+
+# http://dl-cdn.alpinelinux.org/ has been deprecated
+# See https://github.com/codecasts/php-alpine/issues/131
+# Use https://packages.whatwedo.ch/php-alpine/{ALPINE_VERSION}/php-{PHP_VERSION} instead
 # trust this project public key to trust the packages.
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+ADD https://packages.whatwedo.ch/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 # CONFIGURE ALPINE REPOSITORIES AND PHP BUILD DIR.
 ARG PHP_VERSION=7.4
 ARG ALPINE_VERSION=3.12
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories && \
     echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories && \
-    echo "https://dl.bintray.com/php-alpine/v${ALPINE_VERSION}/php-${PHP_VERSION}" >> /etc/apk/repositories
+    echo "https://packages.whatwedo.ch/php-alpine/v${ALPINE_VERSION}/php-${PHP_VERSION}" >> /etc/apk/repositories
 
 # INSTALL PHP AND SOME EXTENSIONS. SEE: https://github.com/codecasts/php-alpine
 RUN apk add --no-cache --update php-fpm \
@@ -42,7 +46,10 @@ RUN apk add --no-cache --update php-fpm \
     php-zip \
     php-xml \
     php-intl \
-    php-xmlreader
+    php-xmlreader && \
+    ln -s /usr/bin/php7 /usr/bin/php
+
+RUN apk add npm nodejs --update --repository="http://dl-cdn.alpinelinux.org/alpine/v3.13/main/"
 
 # CONFIGURE WEB SERVER.
 RUN mkdir -p /var/www && \
